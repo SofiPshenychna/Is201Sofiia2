@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Linguistic Journey &middot; Sofiia Pshenychna</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/scratch.css">
+</head>
+
+<body>
+
+    <!-- NAV: links back to professional pages — required by assignment -->
+    <nav id="scratch-nav">
+        <a href="index.html">&#8592; Home</a>
+        <a href="resume.html">R&eacute;sum&eacute;</a>
+        <a href="webapp.html">Language App</a>
+    </nav>
+
+    <!-- HERO — on-page anchor #top -->
+    <div class="hero-div" id="top">
+        <h1>My Linguistic Journey</h1>
+        <div class="pink-line"></div>
+        <p class="hero-subtitle">Four languages &nbsp;&middot;&nbsp; Three countries &nbsp;&middot;&nbsp; One story</p>
+        <div class="anchor-nav">
+            <a href="#languages">My Languages</a>
+            <a href="#story">My Story</a>
+            <a href="#culture">Czech Culture</a>
+            <a href="#tableau">Language Data</a>
+        </div>
+    </div>
+
+    <!-- LANGUAGES — on-page anchor #languages -->
+    <!-- REQUIREMENT: Nested lists (ordered list with unordered sublists inside) -->
+    <div class="content-div" id="languages">
+        <h2>The Four Languages I Speak</h2>
+        <p>
+            Languages are not merely tools for communication &mdash; they are windows into entirely
+            different worlds of culture, thought, and human experience. Growing up in Ukraine and
+            later living across Central Europe, I came to understand four languages not from
+            textbooks, but from life itself.
+        </p>
+
+        <!-- Outer list: ordered. Inner lists: unordered. Innermost: also unordered. -->
+        <ol class="language-list">
+            <li>
+                <strong>Ukrainian &mdash; My Native Tongue</strong>
+                <ul>
+                    <li>Spoken since birth in Brovary, Ukraine</li>
+                    <li>Language of my family, earliest memories, and deepest emotions</li>
+                    <li>Part of the East Slavic family, written in the Cyrillic alphabet</li>
+                </ul>
+            </li>
+
+            <li>
+                <strong>Russian &mdash; Acquired Through Immersion</strong>
+                <ul>
+                    <li>Widely co-spoken alongside Ukrainian across many regions</li>
+                    <li>Developed strong proficiency through daily conversational use</li>
+                    <li>Now teaching Russian as a Teaching Assistant at BYU</li>
+                </ul>
+            </li>
+
+            <li>
+                <strong>Czech &mdash; Learned Through Service</strong>
+                <ul>
+                    <li>Learned during 18 months of living in Czech Republic and Slovakia</li>
+                    <li>Part of the West Slavic family &mdash; a fascinating shift from my Cyrillic roots</li>
+                    <li>Key differences I discovered compared to Ukrainian:
+                        <ul>
+                            <li>Uses the Latin alphabet instead of Cyrillic</li>
+                            <li>Contains the unique phoneme <em>&rcaron;</em> &mdash; found in no other language</li>
+                            <li>Different grammatical cases and verb aspects</li>
+                            <li>Tonal rhythm feels distinctly &ldquo;Western&rdquo; in character</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <strong>English &mdash; The Language of Opportunity</strong>
+                <ul>
+                    <li>Developed through dedicated formal study and full immersion in the USA</li>
+                    <li>Primary language of my academic coursework at BYU Marriott</li>
+                    <li>Bridges all of my multicultural experience to global professional opportunities</li>
+                </ul>
+            </li>
+        </ol>
+    </div>
+
+    <!-- STORY + IMAGE — on-page anchor #story -->
+    <!-- REQUIREMENT: Image not from Bootstrap theme -->
+    <div class="story-div" id="story">
+        <div class="story-inner">
+            <div class="story-text">
+                <h2>My Story</h2>
+                <p>
+                    Growing up in Brovary, Ukraine, I never imagined that languages would become one of my
+                    greatest strengths. The journey began naturally &mdash; Ukrainian at home, Russian in the
+                    streets, the ordinary rhythm of Eastern European life.
+                </p>
+                <p>
+                    Everything changed when I had the opportunity to live in Czech Republic and Slovakia for
+                    nearly two years. Suddenly I found myself in a world where Slavic grammar felt familiar
+                    but every single word was foreign. Czech became my third language not through textbooks,
+                    but through thousands of real conversations with real people &mdash; in homes, in
+                    marketplaces, in community centers, and on cobblestone streets lit gold by the afternoon sun.
+                </p>
+                <p>
+                    Now, studying Business at BYU, I find that multilingualism is not just a personal
+                    achievement &mdash; it is a professional superpower. Understanding how people think in their
+                    own language gives me deeper empathy for customers, colleagues, and communities. It changes
+                    the way I listen, the way I market, and the way I lead.
+                </p>
+                <p>Each language I speak is a passport &mdash; not to a country, but to a different way of seeing the world.</p>
+            </div>
+
+            <div class="image-div">
+                <img src="assets/img/profile.jpg"
+                     alt="Sofiia Pshenychna"
+                     class="story-img">
+                <p class="img-caption">Sofiia Pshenychna<br>BYU Pre-Business &middot; Provo, Utah</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- CULTURE + YOUTUBE — on-page anchor #culture -->
+    <!-- REQUIREMENT: Embedded YouTube video -->
+    <div class="culture-div" id="culture">
+        <div class="inner">
+            <h2>Czech Culture &amp; Beauty</h2>
+            <p>
+                Czech Republic is a land of breathtaking Gothic and Baroque architecture, centuries of history,
+                and warm, quietly resilient people. During my time there I fell in love with the golden spires
+                of Prague, the rolling Moravian hillsides, and the deep sense of community that defines Central
+                European life. This video captures some of that beauty:
+            </p>
+
+            <!--
+                YouTube embed. To change the video:
+                1. Go to YouTube and open the video you want
+                2. Click Share then Embed
+                3. Copy the URL after /embed/ and replace wFbXQkCvV5c below
+            -->
+            <div class="video-wrapper">
+                <iframe
+                    src="https://www.youtube.com/embed/wFbXQkCvV5c"
+                    title="Czech Republic Travel"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen>
+                </iframe>
+            </div>
+
+            <!-- On-page anchor link back to top -->
+            <a href="#top" class="back-to-top">&#8593; Back to Top</a>
+        </div>
+    </div>
+
+    <!-- TABLEAU — on-page anchor #tableau -->
+    <!-- REQUIREMENT: Live interactive Tableau graph -->
+    <div class="tableau-div" id="tableau">
+        <div class="inner">
+            <h2>World Languages at a Glance</h2>
+            <p>
+                The world&rsquo;s linguistic diversity is extraordinary. Explore the interactive visualization
+                below to discover where and how widely different languages are spoken around the globe.
+            </p>
+
+            <!--
+                Tableau Public embed.
+                To swap for a different viz:
+                1. Go to https://public.tableau.com/gallery
+                2. Find a viz, click Share, then Embed Code
+                3. Replace the param name="name" value below with your chosen viz path
+            -->
+            <div class="tableau-frame">
+                <div class="tableauPlaceholder" id="viz1" style="position:relative; width:100%;">
+                    <noscript>
+                        <a href="https://public.tableau.com/">
+                            <img alt="World Languages"
+                                 src="https://public.tableau.com/static/images/La/LanguagesoftheWorld/Dashboard1/1_rss.png"
+                                 style="border:none;">
+                        </a>
+                    </noscript>
+                    <object class="tableauViz" style="display:none; width:100%;">
+                        <param name="host_url"           value="https%3A%2F%2Fpublic.tableau.com%2F">
+                        <param name="embed_code_version" value="3">
+                        <param name="site_root"          value="">
+                        <param name="name"               value="LanguagesoftheWorld/Dashboard1">
+                        <param name="tabs"               value="no">
+                        <param name="toolbar"            value="yes">
+                        <param name="animate_transition" value="yes">
+                        <param name="display_static_image" value="yes">
+                        <param name="display_spinner"    value="yes">
+                        <param name="display_overlay"    value="yes">
+                        <param name="display_count"      value="yes">
+                        <param name="language"           value="en-US">
+                    </object>
+                </div>
+                <script type="text/javascript">
+                    (function() {
+                        var div = document.getElementById('viz1');
+                        var viz = div.getElementsByTagName('object')[0];
+                        viz.style.width  = '100%';
+                        viz.style.height = div.offsetWidth > 800 ? '627px' : div.offsetWidth > 500 ? '527px' : '427px';
+                        var s = document.createElement('script');
+                        s.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+                        viz.parentNode.insertBefore(s, viz);
+                    })();
+                </script>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer-div">
+        <p>Sofiia Pshenychna &nbsp;&middot;&nbsp; BYU Marriott School of Business &nbsp;&middot;&nbsp; 2025</p>
+        <div style="margin-top:0.5rem;">
+            <a href="index.html">Home</a>
+            <a href="resume.html">R&eacute;sum&eacute;</a>
+            <a href="webapp.html">Language App</a>
+            <a href="#top">&#8593; Top</a>
+        </div>
+    </footer>
+
+</body>
+</html>

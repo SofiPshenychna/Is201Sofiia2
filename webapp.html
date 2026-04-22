@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language Quiz &middot; Sofiia&rsquo;s App</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --rose:       #e8a0b4;
+            --rose-dark:  #c9637e;
+            --rose-deep:  #a0405a;
+            --blush:      #f9e8ee;
+            --blush-mid:  #f2d0db;
+            --text:       #3d2535;
+            --muted:      #8b6070;
+            --green:      #2e7d50;
+            --green-bg:   #eaf5ee;
+            --red:        #9b2335;
+            --red-bg:     #fdecea;
+            --white:      #ffffff;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            background: linear-gradient(145deg, #a0405a 0%, #7a2a42 55%, #4a1528 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem 1rem 3rem;
+        }
+
+        /* HEADER */
+        header {
+            text-align: center;
+            color: #fff;
+            margin-bottom: 2rem;
+            max-width: 560px;
+            width: 100%;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: var(--rose);
+            text-decoration: none;
+            font-size: 0.78rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            font-weight: 700;
+            margin-bottom: 1.25rem;
+            transition: color 0.2s;
+        }
+
+        .back-link:hover { color: #fff; }
+
+        header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            margin-bottom: 0.4rem;
+        }
+
+        header p { color: rgba(255,255,255,0.65); font-size: 0.92rem; }
+
+        .flags { display: flex; justify-content: center; gap: 0.5rem; margin-top: 0.75rem; font-size: 1.6rem; }
+
+        /* CARD */
+        .card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 2.25rem 2.5rem;
+            width: 100%;
+            max-width: 560px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3), 0 0 0 4px rgba(232,160,180,0.2);
+            border-top: 5px solid var(--rose);
+        }
+
+        /* SCORE BAR */
+        .score-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; }
+        .score-bar .label { font-size: 0.8rem; color: var(--muted); font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; }
+        .score-value { font-size: 1.05rem; font-weight: 700; color: var(--rose-deep); }
+
+        /* PROGRESS BAR */
+        .progress-track { width: 100%; height: 7px; background: var(--blush-mid); border-radius: 4px; overflow: hidden; margin-bottom: 1.75rem; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, var(--rose-deep), var(--rose)); border-radius: 4px; transition: width 0.4s ease; }
+
+        /* QUESTION */
+        .question-area { text-align: center; margin-bottom: 1.75rem; }
+
+        .lang-badge {
+            display: inline-block;
+            background: var(--rose-deep);
+            color: #fff;
+            padding: 0.25rem 1rem;
+            border-radius: 25px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .question-word {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--rose-deep);
+            margin-bottom: 0.3rem;
+            line-height: 1.1;
+        }
+
+        .question-hint { font-size: 0.88rem; color: var(--muted); }
+
+        /* OPTIONS */
+        .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; margin-bottom: 1.25rem; }
+
+        .option-btn {
+            background: var(--blush);
+            border: 2px solid var(--blush-mid);
+            border-radius: 12px;
+            padding: 1rem 0.75rem;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text);
+            cursor: pointer;
+            transition: all 0.18s;
+            text-align: center;
+            font-family: 'Lato', sans-serif;
+        }
+
+        .option-btn:hover:not(:disabled) {
+            border-color: var(--rose-dark);
+            background: var(--blush-mid);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(160,64,90,0.15);
+        }
+
+        .option-btn.correct  { background: var(--green-bg); border-color: var(--green); color: var(--green); }
+        .option-btn.wrong    { background: var(--red-bg);   border-color: var(--red);   color: var(--red);   }
+        .option-btn:disabled { cursor: default; transform: none; box-shadow: none; }
+
+        /* FEEDBACK */
+        .feedback { text-align: center; min-height: 1.75rem; font-weight: 700; font-size: 1rem; margin-bottom: 1rem; }
+        .feedback.correct { color: var(--green); }
+        .feedback.wrong   { color: var(--red);   }
+
+        /* NEXT BUTTON */
+        .next-btn {
+            display: none;
+            width: 100%;
+            padding: 0.9rem;
+            background: var(--rose-deep);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-family: 'Lato', sans-serif;
+        }
+
+        .next-btn:hover { background: var(--rose-dark); }
+
+        /* RESULTS */
+        .results-card { display: none; text-align: center; }
+        .results-emoji { font-size: 3.5rem; margin-bottom: 0.5rem; }
+        .results-card h2 { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; color: var(--rose-deep); margin-bottom: 0.25rem; }
+        .big-score { font-family: 'Playfair Display', serif; font-size: 4.5rem; font-weight: 700; color: var(--rose-dark); line-height: 1; margin: 0.75rem 0; }
+        .result-msg { color: var(--muted); font-size: 0.95rem; margin-bottom: 1.5rem; }
+
+        .restart-btn {
+            background: var(--rose-deep);
+            color: #fff; border: none;
+            border-radius: 12px;
+            padding: 0.9rem 2.5rem;
+            font-size: 0.95rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: background 0.2s;
+            display: block; width: 100%; margin-bottom: 1rem;
+            font-family: 'Lato', sans-serif;
+        }
+
+        .restart-btn:hover { background: var(--rose-dark); }
+
+        .results-back-link { display: block; color: var(--rose-deep); font-size: 0.85rem; font-weight: 700; text-decoration: none; }
+        .results-back-link:hover { color: var(--rose-dark); }
+
+        /* FOOTER */
+        footer { color: rgba(255,255,255,0.35); font-size: 0.75rem; margin-top: 1.75rem; text-align: center; letter-spacing: 0.08em; }
+
+        @media (max-width: 480px) {
+            .card { padding: 1.75rem 1.25rem; }
+            .question-word { font-size: 2.2rem; }
+            .options-grid { gap: 0.5rem; }
+            .option-btn { font-size: 0.9rem; padding: 0.8rem 0.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="scratch.html" class="back-link">&#8592; Back to My Journey</a>
+        <h1>&#127757; Language Quiz</h1>
+        <p>How well do you know Ukrainian, Russian &amp; Czech?</p>
+        <div class="flags">&#127482;&#127462; &#127479;&#127482; &#127464;&#127487; &#127468;&#127463;</div>
+    </header>
+
+    <!-- Quiz card -->
+    <div class="card" id="quiz-card">
+        <div class="score-bar">
+            <div class="label">Question <span id="q-num">1</span> / <span id="q-total">10</span></div>
+            <div class="score-value">Score: <span id="score">0</span></div>
+        </div>
+        <div class="progress-track">
+            <div class="progress-fill" id="progress-fill" style="width:10%;"></div>
+        </div>
+        <div class="question-area">
+            <div class="lang-badge" id="lang-badge">English</div>
+            <div class="question-word" id="question-word">Hello</div>
+            <div class="question-hint" id="question-hint">Select the correct translation</div>
+        </div>
+        <div class="options-grid" id="options-grid"></div>
+        <div class="feedback" id="feedback"></div>
+        <button class="next-btn" id="next-btn" onclick="nextQuestion()">Next Question &rarr;</button>
+    </div>
+
+    <!-- Results card -->
+    <div class="card results-card" id="results-card">
+        <div class="results-emoji" id="result-emoji">&#127881;</div>
+        <h2>Quiz Complete!</h2>
+        <div class="big-score" id="final-score">8 / 10</div>
+        <p class="result-msg" id="result-msg">Great work!</p>
+        <button class="restart-btn" onclick="restartQuiz()">Play Again</button>
+        <a href="scratch.html" class="results-back-link">&#8592; Back to My Journey</a>
+    </div>
+
+    <footer>Sofiia Pshenychna &nbsp;&middot;&nbsp; BYU IS 201 &nbsp;&middot;&nbsp; Language Quiz App</footer>
+
+    <script>
+        const vocab = [
+            { en:"Hello",        uk:"Привіт",          ru:"Привет",          cs:"Ahoj"       },
+            { en:"Thank you",    uk:"Дякую",            ru:"Спасибо",         cs:"Děkuji"     },
+            { en:"Beautiful",    uk:"Гарний",           ru:"Красивый",        cs:"Krásný"     },
+            { en:"Friend",       uk:"Друг",             ru:"Друг",            cs:"Přítel"     },
+            { en:"Water",        uk:"Вода",             ru:"Вода",            cs:"Voda"       },
+            { en:"Love",         uk:"Кохання",          ru:"Любовь",          cs:"Láska"      },
+            { en:"Home",         uk:"Дім",              ru:"Дом",             cs:"Domov"      },
+            { en:"Book",         uk:"Книга",            ru:"Книга",           cs:"Kniha"      },
+            { en:"Family",       uk:"Сімʼя",            ru:"Семья",           cs:"Rodina"     },
+            { en:"Music",        uk:"Музика",           ru:"Музыка",          cs:"Hudba"      },
+            { en:"City",         uk:"Місто",            ru:"Город",           cs:"Město"      },
+            { en:"Language",     uk:"Мова",             ru:"Язык",            cs:"Jazyk"      },
+            { en:"Work",         uk:"Робота",           ru:"Работа",          cs:"Práce"      },
+            { en:"Time",         uk:"Час",              ru:"Время",           cs:"Čas"        },
+            { en:"Happy",        uk:"Щасливий",         ru:"Счастливый",      cs:"Šťastný"    },
+            { en:"Teacher",      uk:"Вчитель",          ru:"Учитель",         cs:"Učitel"     },
+            { en:"Country",      uk:"Країна",           ru:"Страна",          cs:"Země"       },
+            { en:"Heart",        uk:"Серце",            ru:"Сердце",          cs:"Srdce"      },
+            { en:"Journey",      uk:"Подорож",          ru:"Путешествие",     cs:"Cesta"      },
+            { en:"Welcome",      uk:"Ласкаво просимо",  ru:"Добро пожаловать",cs:"Vítejte"    },
+        ];
+
+        const targetLangs = [
+            { key:"uk", name:"Ukrainian", flag:"🇺🇦" },
+            { key:"ru", name:"Russian",   flag:"🇷🇺" },
+            { key:"cs", name:"Czech",     flag:"🇨🇿" },
+        ];
+
+        let questions = [], currentQ = 0, score = 0, answered = false;
+
+        function buildQuestions() {
+            const shuffled = [...vocab].sort(() => Math.random() - 0.5).slice(0, 10);
+            questions = shuffled.map(word => {
+                const lang = targetLangs[Math.floor(Math.random() * targetLangs.length)];
+                const correct = word[lang.key];
+                const distractors = vocab
+                    .filter(w => w[lang.key] !== correct)
+                    .sort(() => Math.random() - 0.5)
+                    .slice(0, 3)
+                    .map(w => w[lang.key]);
+                const options = [...distractors, correct].sort(() => Math.random() - 0.5);
+                return { english: word.en, lang, correct, options };
+            });
+        }
+
+        function loadQuestion() {
+            answered = false;
+            const q = questions[currentQ];
+            document.getElementById('q-num').textContent      = currentQ + 1;
+            document.getElementById('q-total').textContent    = questions.length;
+            document.getElementById('score').textContent      = score;
+            document.getElementById('lang-badge').textContent = q.lang.flag + ' ' + q.lang.name;
+            document.getElementById('question-word').textContent = q.english;
+            document.getElementById('question-hint').textContent = 'Select the ' + q.lang.name + ' translation';
+            document.getElementById('feedback').textContent   = '';
+            document.getElementById('feedback').className     = 'feedback';
+            document.getElementById('next-btn').style.display = 'none';
+
+            const pct = Math.max((currentQ / questions.length) * 100, 5);
+            document.getElementById('progress-fill').style.width = pct + '%';
+
+            const grid = document.getElementById('options-grid');
+            grid.innerHTML = '';
+            q.options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.textContent = opt;
+                btn.addEventListener('click', () => checkAnswer(btn, opt, q.correct));
+                grid.appendChild(btn);
+            });
+        }
+
+        function checkAnswer(clickedBtn, selected, correct) {
+            if (answered) return;
+            answered = true;
+            document.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
+            const fb = document.getElementById('feedback');
+            if (selected === correct) {
+                clickedBtn.classList.add('correct');
+                score++;
+                document.getElementById('score').textContent = score;
+                fb.textContent = '✓ Correct!';
+                fb.className = 'feedback correct';
+            } else {
+                clickedBtn.classList.add('wrong');
+                fb.textContent = '✗ The answer was: ' + correct;
+                fb.className = 'feedback wrong';
+                document.querySelectorAll('.option-btn').forEach(b => {
+                    if (b.textContent === correct) b.classList.add('correct');
+                });
+            }
+            document.getElementById('next-btn').style.display = 'block';
+        }
+
+        function nextQuestion() {
+            currentQ++;
+            if (currentQ < questions.length) {
+                loadQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            document.getElementById('quiz-card').style.display = 'none';
+            document.getElementById('results-card').style.display = 'block';
+            const pct = Math.round((score / questions.length) * 100);
+            document.getElementById('final-score').textContent = score + ' / ' + questions.length;
+            let emoji = '🌸', msg = '';
+            if (pct === 100)     { emoji = '🏆'; msg = 'Perfect score! You have a true gift for Slavic languages.'; }
+            else if (pct >= 80)  { emoji = '🌟'; msg = 'Outstanding! Your multilingual skills are impressive.'; }
+            else if (pct >= 60)  { emoji = '💪'; msg = 'Great effort! A little more practice and you\'ll master it.'; }
+            else if (pct >= 40)  { emoji = '📚'; msg = 'Good start! Languages take time and repetition — keep going.'; }
+            else                 { emoji = '🌱'; msg = 'Every expert was once a beginner. You\'ve got this!'; }
+            document.getElementById('result-emoji').textContent = emoji;
+            document.getElementById('result-msg').textContent = msg;
+        }
+
+        function restartQuiz() {
+            score = 0; currentQ = 0;
+            document.getElementById('quiz-card').style.display = 'block';
+            document.getElementById('results-card').style.display = 'none';
+            buildQuestions();
+            loadQuestion();
+        }
+
+        buildQuestions();
+        loadQuestion();
+    </script>
+</body>
+</html>
